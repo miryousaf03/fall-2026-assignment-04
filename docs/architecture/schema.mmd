@@ -1,0 +1,35 @@
+erDiagram
+    MEMBERS ||--o{ LOANS : borrows
+    BOOKS ||--o{ LOANS : "loaned in"
+
+    MEMBERS {
+        int id PK
+        string card_number
+        string first_name
+        string last_name
+        string email
+        string phone
+        string joined_date
+        string status
+    }
+
+    BOOKS {
+        int id PK
+        string isbn
+        string title
+        string author
+        int published_year
+        string genre
+        int total_copies
+        int available_copies
+    }
+
+    LOANS {
+        int id PK
+        int member_id FK
+        int book_id FK
+        string loan_date
+        string due_date
+        string return_date
+        string status
+    }
