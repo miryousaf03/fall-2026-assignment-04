@@ -1,35 +1,63 @@
 erDiagram
-    MEMBERS ||--o{ LOANS : borrows
+    USERS ||--o| BORROWERS : "profile of"
+    BORROWERS ||--o{ LOANS : "borrows"
     BOOKS ||--o{ LOANS : "loaned in"
+    BOOKS ||--o{ BOOK_AUTHORS : "has"
+    AUTHORS ||--o{ BOOK_AUTHORS : "wrote"
+    BOOKS ||--o{ BOOK_GENRES : "has"
+    GENRES ||--o{ BOOK_GENRES : "categorizes"
 
-    MEMBERS {
+    USERS {
         int id PK
-        string card_number
-        string first_name
-        string last_name
         string email
+        string name
+        timestamp created_at
+    }
+
+    BORROWERS {
+        int id PK
+        int user_id FK "unique"
+        string card_number
         string phone
-        string joined_date
-        string status
     }
 
     BOOKS {
         int id PK
         string isbn
         string title
-        string author
         int published_year
-        string genre
         int total_copies
         int available_copies
     }
 
+    AUTHORS {
+        int id PK
+        string name
+    }
+
+    GENRES {
+        int id PK
+        string name
+    }
+
+    BOOK_AUTHORS {
+        int id PK
+        int book_id FK
+        int author_id FK
+    }
+
+    BOOK_GENRES {
+        int id PK
+        int book_id FK
+        int genre_id FK
+    }
+
     LOANS {
         int id PK
-        int member_id FK
+        int borrower_id FK
         int book_id FK
-        string loan_date
-        string due_date
-        string return_date
+        date loan_date
+        date due_date
+        date return_date "nullable"
         string status
     }
